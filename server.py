@@ -3,8 +3,10 @@ import os
 from flask import Flask, jsonify, request, abort 
 
 LIGHT_IDS = ['7', '6', '5', '4', '1']
+MAX_BRIGHTNESS = 800
+MIN_BRIGHTNESS = 0
 NUM_LIGHTS = 5
-    
+
 app = Flask(__name__) 
 
 def set_light(light_id, brightness):
@@ -22,12 +24,36 @@ def get():
     light_id = int(light_id_arg)
     brightness = int(brightness_arg)
 
-    if light_id < 0 or light_id >= 5 or brightness < 0 or brightness >= 900:
+    if light_id < 0 or light_id >= 5:
         abort(400)
 
+    if brightness < MIN_BRIGHTNESS or brightness >= MAX_BRIGHTNESS:
+        abort(400)
+        
     set_light(light_id, brightness)
         
     return '{}'
+
+@app.route('/blink_light', methods=['GET'])
+def get():
+    light_id_arg = request.args.get('light_id')
+
+    if not light_id_arg:
+        abort(400)
+
+    if light_id < 0 or light_id >= 5:
+        abort(400)
+
+    brightness = MIN_BRIGHTNESS
+    while brightness < MAX_BRIGHTNESS:
+        set_light(light_id, brightness)
+        brightness += 2
+
+    while brightness >= MIN_BRIGHTNESS:
+        set_light(light_id, brightness)
+        brightness -= 2
+
+    return {}
 
 if __name__ == '__main__':
     for i in range(0, NUM_LIGHTS):
