@@ -68,7 +68,7 @@ def wave_lights():
 @app.route('/wave')
 def wave_endpoint():
     wave_lights()
-    return {}
+    return '{}'
     
 @app.route('/set_light')
 def set_light_endpoint():
