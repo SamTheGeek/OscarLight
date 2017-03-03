@@ -72,7 +72,7 @@ def wave_endpoint():
 
 @app.route('/up')
 def up_endpoint():
-    all_lights_up()p
+    all_lights_up()
     return '{}'
 
 @app.route('/blink')
