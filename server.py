@@ -110,6 +110,23 @@ def set_light_endpoint():
         
     return '{}'
 
+@app.route('/set_all')
+def set_all_endpoint():
+    brightness_arg = request.args.get('bright')
+
+    if not brightness_arg:
+        abort(400)
+
+    brightness = float(brightness_arg)
+
+    if brightness < MIN_BRIGHTNESS or brightness > MAX_BRIGHTNESS:
+        abort(400)
+
+    for i in range(5):
+        set_light(i, brightness)
+
+    return '{}'
+
 if __name__ == '__main__':
     all_lights_up()
     app.run(debug=True)
