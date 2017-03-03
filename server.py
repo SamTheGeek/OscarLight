@@ -1,4 +1,5 @@
 import os
+import random
 
 from flask import Flask, jsonify, request, abort 
 
@@ -126,6 +127,14 @@ def set_all_endpoint():
         set_light(i, brightness)
 
     return '{}'
+
+@app.route('/rand')
+def random_endpoint():
+    for i in range(5):
+        set_light(i, random.random())
+
+    return '{}'
+
 
 if __name__ == '__main__':
     all_lights_up()
