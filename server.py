@@ -27,7 +27,7 @@ def set_one_light():
     if light_id < 0 or light_id >= 5:
         abort(400)
 
-    if brightness < MIN_BRIGHTNESS or brightness >= MAX_BRIGHTNESS:
+    if brightness < MIN_BRIGHTNESS or brightness > MAX_BRIGHTNESS:
         abort(400)
         
     set_light(light_id, brightness)
@@ -47,7 +47,7 @@ def blink_one_light():
         abort(400)
 
     brightness = MIN_BRIGHTNESS
-    while brightness < MAX_BRIGHTNESS:
+    while brightness <= MAX_BRIGHTNESS:
         set_light(light_id, brightness)
         brightness += 2
 
@@ -59,6 +59,6 @@ def blink_one_light():
 
 if __name__ == '__main__':
     for i in range(0, NUM_LIGHTS):
-        set_light(i, 0)
+        set_light(i, MAX_BRIGHTNESS)
  
     app.run(debug=True)
