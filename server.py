@@ -103,6 +103,7 @@ def blink_endpoint():
     if not light_id_arg:
         all_lights_down()
         all_lights_up()
+        return '{}'
 
     light_id = int(light_id_arg)
 
