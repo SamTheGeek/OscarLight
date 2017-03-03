@@ -41,6 +41,8 @@ def blink_one_light():
     if not light_id_arg:
         abort(400)
 
+    light_id = int(light_id_arg)
+        
     if light_id < 0 or light_id >= 5:
         abort(400)
 
