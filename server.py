@@ -4,7 +4,7 @@ from flask import Flask, jsonify, request, abort
 
 LIGHT_IDS = ['7', '6', '5', '4', '1']
 LIGHT_BRIGHTS = [0, 0, 0, 0, 0]
-MAX_BRIGHTNESS = 400
+MAX_BRIGHTNESS = 200
 MIN_BRIGHTNESS = 0
 NUM_LIGHTS = 5
 
