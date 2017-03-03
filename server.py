@@ -50,7 +50,7 @@ def wave_lights():
                 if not turning_up[i]:
                     set_light(i, LIGHT_BRIGHTS[i] - 2)
                     if (LIGHT_BRIGHTS[i] <= 0):
-                        turning_up = true
+                        turning_up = True
                 else:
                     if (LIGHT_BRIGHTS[i] < 800):
                         set_light(i, LIGHT_BRIGHTS[i] + 2)
