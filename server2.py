@@ -7,6 +7,7 @@ light_state = [ 0 for i in range(0, NLIGHTS) ]
  
 app = Flask(__name__)
 
+# server2.py mo like server ew .py
 
 def turn(i, on_off):
     light_state[i] = on_off
