@@ -13,7 +13,7 @@ def set_light(light_id, brightness):
     os.system("echo " + LIGHT_IDS[light_id] + "=" + str(brightness)
               + " > /dev/servoblaster")
     
-@app.route('/set_light', methods=['GET'])
+@app.route('/set_light')
 def get():
     light_id_arg = request.args.get('light_id')
     brightness_arg = request.args.get('brightness')
@@ -34,7 +34,7 @@ def get():
         
     return '{}'
 
-@app.route('/blink_light', methods=['GET'])
+@app.route('/blink_light')
 def get():
     light_id_arg = request.args.get('light_id')
 
