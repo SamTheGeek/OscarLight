@@ -25,7 +25,17 @@ def all_lights_up():
                 set_light(i, LIGHT_BRIGHTS[i] + .015)
         if done:
             return
-        
+
+def all_lights_down():
+    while True:
+        done = True
+        for i in range(5):
+            if LIGHT_BRIGHTS[i] > MIN_BRIGHTNESS:
+                done = False
+                set_light(i, LIGHT_BRIGHTS[i] - .015)
+        if done:
+            return
+
 def blink_light(light_id):
     brightness = LIGHT_BRIGHTS[light_id]
     while brightness >= MIN_BRIGHTNESS:
@@ -74,6 +84,11 @@ def wave_endpoint():
 @app.route('/up')
 def up_endpoint():
     all_lights_up()
+    return '{}'
+
+@app.route('/down')
+def down_endpoint():
+    all_lights_down()
     return '{}'
 
 @app.route('/blink')
