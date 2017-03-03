@@ -27,7 +27,7 @@ def put(light_id):
     return '{}'
 
 if __name__ == '__main__':
-    for i in range(0, NLIGHTS):
+    for i in range(0, NUM_LIGHTS):
         set_light(i, 0)
  
     app.run(debug=True)
