@@ -55,7 +55,7 @@ def blink_one_light():
         set_light(light_id, brightness)
         brightness -= 2
 
-    return {}
+    return '{}'
 
 if __name__ == '__main__':
     for i in range(0, NUM_LIGHTS):
