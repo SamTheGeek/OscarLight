@@ -29,11 +29,11 @@ def blink_light(light_id):
     brightness = LIGHT_BRIGHTS[light_id]
     while brightness >= MIN_BRIGHTNESS:
         set_light(light_id, brightness)
-        brightness -= .02
+        brightness -= .01
 
     while brightness <= MAX_BRIGHTNESS:
         set_light(light_id, brightness)
-        brightness += .02
+        brightness += .01
         
 def wave_lights():
     count_downs = [0, 20, 40, 60, 80]
