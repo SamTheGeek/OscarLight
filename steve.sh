@@ -1,7 +1,10 @@
 #! /bin/bash
 
+# run this first, if newly rebooted
+#sudo servod --min=0 --max=100%
+
 start=10
-max=800
+max=400
 c=$start
 inc=2
 while [[ $c -lt $max ]] ; do 
