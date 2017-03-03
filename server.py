@@ -4,7 +4,7 @@ from flask import Flask, jsonify, request, abort
 
 LIGHT_IDS = ['7', '6', '5', '4', '1']
 LIGHT_BRIGHTS = [0, 0, 0, 0, 0]
-MAX_BRIGHTNESS = 800
+MAX_BRIGHTNESS = 400
 MIN_BRIGHTNESS = 0
 NUM_LIGHTS = 5
 
@@ -40,9 +40,9 @@ def wave_lights():
     turning_up = [False, False, False, False, False]   
 
     for i in range(5):
-        set_light(i, 800)
+        set_light(i, MAX_BRIGHTNESS)
         
-    set_light(1, 800)
+    set_light(1, MAX_BRIGHTNESS)
 
     while True:
         for i in range(5):
@@ -52,7 +52,7 @@ def wave_lights():
                     if (LIGHT_BRIGHTS[i] <= 0):
                         turning_up[i] = True
                 else:
-                    if (LIGHT_BRIGHTS[i] < 800):
+                    if (LIGHT_BRIGHTS[i] < MAX_BRIGHTNESS):
                         set_light(i, LIGHT_BRIGHTS[i] + 2)
             else:
                 count_downs[i] -= 1
@@ -60,7 +60,7 @@ def wave_lights():
         # this is the worst code I've written all year
         done = True
         for i in range(5):
-            if LIGHT_BRIGHTS[i] < 800:
+            if LIGHT_BRIGHTS[i] < MAX_BRIGHTNESS:
                 done = False
         if done:
             return
