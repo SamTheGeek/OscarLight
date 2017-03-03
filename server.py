@@ -48,12 +48,12 @@ def wave_lights():
         for i in range(5):
             if count_downs[i] == 0:
                 if not turning_up[i]:
-                    set_light(i, LIGHT_BRIGHTS[i] - .02)
+                    set_light(i, LIGHT_BRIGHTS[i] - .015)
                     if (LIGHT_BRIGHTS[i] <= 0):
                         turning_up[i] = True
                 else:
                     if (LIGHT_BRIGHTS[i] < MAX_BRIGHTNESS):
-                        set_light(i, LIGHT_BRIGHTS[i] + .02)
+                        set_light(i, LIGHT_BRIGHTS[i] + .015)
             else:
                 count_downs[i] -= 1
 
