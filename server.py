@@ -156,7 +156,7 @@ def random_endpoint():
 def sparkle_endpoint():
     for i in range(100):
         randomize()
-    ell_lights_up()
+    all_lights_up()
     return '{}'
     
 if __name__ == '__main__':
