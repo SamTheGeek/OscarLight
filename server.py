@@ -158,7 +158,7 @@ def random_endpoint():
 
 @app.route('/sparkle')
 def sparkle_endpoint():
-    for i in range(100):
+    for i in range(800):
         randomize()
     all_lights_up()
     return '{}'
