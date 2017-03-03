@@ -36,7 +36,7 @@ def blink_light():
         brightness += 2
 
 def wave_lights():
-    count_downs = [0, 80, 160, 240, 320]
+    count_downs = [0, 20, 40, 60, 80]
     turning_up = [False, False, False, False, False]   
 
     for i in range(5):
