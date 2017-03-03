@@ -46,6 +46,7 @@ def blink_one_light():
     if light_id < 0 or light_id >= 5:
         abort(400)
 
+    brightness = MAX_BRIGHTNESS
     while brightness >= MIN_BRIGHTNESS:
         set_light(light_id, brightness)
         brightness -= 2
