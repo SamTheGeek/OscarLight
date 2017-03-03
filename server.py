@@ -12,7 +12,7 @@ def set_light(light_id, brightness):
               + " > /dev/servoblaster")
     
 @app.route('/', methods=['GET'])
-def get(light_id):
+def get():
     light_id_arg = request.args.get('light_id')
     brightness_arg = request.args.get('brightness')
     
