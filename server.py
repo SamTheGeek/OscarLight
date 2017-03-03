@@ -2,11 +2,10 @@ import os
 
 from flask import Flask, jsonify, request, abort 
 
-LIGHT_IDS = ['7', '6', '5', '4', '1']
-LIGHT_IDS = ['1', '4', '5', '6', '7']
+LIGHT_IDS = ['17', '22', '23', '24', '25']
 LIGHT_BRIGHTS = [0, 0, 0, 0, 0]
-MAX_BRIGHTNESS = 200
-MIN_BRIGHTNESS = 0
+MAX_BRIGHTNESS = 0.95
+MIN_BRIGHTNESS = 0.0
 NUM_LIGHTS = 5
 
 app = Flask(__name__) 
@@ -14,7 +13,7 @@ app = Flask(__name__)
 def set_light(light_id, brightness):
     LIGHT_BRIGHTS[light_id] = brightness
     os.system("echo " + LIGHT_IDS[light_id] + "=" + str(brightness)
-              + " > /dev/servoblaster")
+              + " > /dev/pi-blaster")
     
 def blink_light():
     light_id_arg = request.args.get('light_id')
@@ -30,12 +29,12 @@ def blink_light():
     brightness = MAX_BRIGHTNESS
     while brightness >= MIN_BRIGHTNESS:
         set_light(light_id, brightness)
-        brightness -= 2
+        brightness -= .02
 
     while brightness <= MAX_BRIGHTNESS:
         set_light(light_id, brightness)
-        brightness += 2
-
+        brightness += .02
+        
 def wave_lights():
     count_downs = [0, 20, 40, 60, 80]
     turning_up = [False, False, False, False, False]   
@@ -54,9 +53,9 @@ def wave_lights():
                         turning_up[i] = True
                 else:
                     if (LIGHT_BRIGHTS[i] < MAX_BRIGHTNESS):
-                        set_light(i, LIGHT_BRIGHTS[i] + 1)
+                        set_light(i, LIGHT_BRIGHTS[i] + .02)
             else:
-                count_downs[i] -= 1
+                count_downs[i] -= .02
 
         # this is the worst code I've written all year
         done = True
