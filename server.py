@@ -11,15 +11,18 @@ def set_light(light_id, brightness):
     os.system("echo " + LIGHT_IDS[light_id] + "=" + str(brightness)
               + " > /dev/servoblaster")
     
-@app.route('/', methods=['PUT'])
+@app.route('/', methods=['GET'])
 def put(light_id):
-    light_id = request.args.get('light_id')
-    brightness = request.args.get('brightness')
-     
-    if not light_id or light_id < 0 or light_id >= 5:
+    light_id_arg = request.args.get('light_id')
+    brightness_arg = request.args.get('brightness')
+    
+    if not light_id_arg or not brightness_arg:
         abort(400)
 
-    if not brightness or brightness < 0 or brightness >= 900:
+    light_id = int(light_id_arg)
+    brightness = int(brightness_id_arg)
+
+    if light_id < 0 or light_id >= 5 or brightness < 0 or brightness >= 900:
         abort(400)
 
     set_light(light_id, brightness)
