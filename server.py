@@ -14,19 +14,19 @@ def set_light(light_id, brightness):
     LIGHT_BRIGHTS[light_id] = brightness
     os.system("echo " + LIGHT_IDS[light_id] + "=" + str(brightness)
               + " > /dev/pi-blaster")
-    
-def blink_light():
-    light_id_arg = request.args.get('light_id')
 
-    if not light_id_arg:
-        abort(400)
-
-    light_id = int(light_id_arg)
+def all_lights_up():
+    while True:
+        done = True
+        for i in range(5):
+            if LIGHT_BRIGHTS[i] < MAX_BRIGHTNESS:
+                done = False
+                set_light(i, LIGHT_BRIGHTS[i] + .015)
+        if done:
+            return
         
-    if light_id < 0 or light_id >= 5:
-        abort(400)
-
-    brightness = MAX_BRIGHTNESS
+def blink_light(light_id):
+    brightness = LIGHT_BRIGHTS[light_id]
     while brightness >= MIN_BRIGHTNESS:
         set_light(light_id, brightness)
         brightness -= .02
@@ -69,17 +69,36 @@ def wave_lights():
 def wave_endpoint():
     wave_lights()
     return '{}'
-    
-@app.route('/set_light')
+
+@app.route('/up')
+def up_endpoint():
+    all_lights_up()
+    return '{}'
+
+@app.route('/blink')
+def blink_endpoint():
+    light_id_arg = request.args.get('light')
+    if not light_id_arg:
+        abort(400)
+
+    light_id = int(light_id_arg)
+
+    if light_id < 0 or light_id >= 5:
+        abort(400)
+
+    blink_light(light_id)
+    return '{}'
+
+@app.route('/set')
 def set_light_endpoint():
-    light_id_arg = request.args.get('light_id')
-    brightness_arg = request.args.get('brightness')
+    light_id_arg = request.args.get('light')
+    brightness_arg = request.args.get('bright')
     
     if not light_id_arg or not brightness_arg:
         abort(400)
 
     light_id = int(light_id_arg)
-    brightness = int(brightness_arg)
+    brightness = float(brightness_arg)
 
     if light_id < 0 or light_id >= 5:
         abort(400)
@@ -92,7 +111,5 @@ def set_light_endpoint():
     return '{}'
 
 if __name__ == '__main__':
-    for i in range(0, NUM_LIGHTS):
-        set_light(i, MAX_BRIGHTNESS)
- 
+    all_lights_up()
     app.run(debug=True)
