@@ -75,7 +75,11 @@ def wave_lights():
                 done = False
         if done:
             return
-    
+
+def randomize():
+    for i in range(5):
+        set_light(i, random.random())
+
 @app.route('/wave')
 def wave_endpoint():
     wave_lights()
@@ -145,12 +149,16 @@ def set_all_endpoint():
 
 @app.route('/rand')
 def random_endpoint():
-    for i in range(5):
-        set_light(i, random.random())
-
+    randomize()
     return '{}'
 
-
+@app.route('/sparkle')
+def sparkle_endpoint():
+    for i in range(100):
+        randomize()
+    ell_lights_up()
+    return '{}'
+    
 if __name__ == '__main__':
     all_lights_up()
     app.run(debug=True)
