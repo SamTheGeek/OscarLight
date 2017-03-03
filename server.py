@@ -47,7 +47,8 @@ def wave_lights():
     while True:
         for i in range(5):
             if count_downs[i] == 0:
-                if not turning_up[i]:
+                tu = turning_up[i]
+                if not tu:
                     set_light(i, LIGHT_BRIGHTS[i] - 2)
                     if (LIGHT_BRIGHTS[i] <= 0):
                         turning_up = True
