@@ -2,13 +2,13 @@ import os
 
 from flask import Flask, jsonify, request, abort 
 
-LIGHT_IDS = [7, 6, 5, 4, 1]
+LIGHT_IDS = ['7', '6', '5', '4', '1']
 NUM_LIGHTS = 5
     
 app = Flask(__name__) 
 
 def set_light(light_id, brightness):
-    os.system("echo " + LIGHT_IDS[light_id] + "=" + brightness
+    os.system("echo " + LIGHT_IDS[light_id] + "=" + str(brightness)
               + " > /dev/servoblaster")
     
 @app.route('/', methods=['PUT'])
