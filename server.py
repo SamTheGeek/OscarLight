@@ -20,7 +20,7 @@ def get():
         abort(400)
 
     light_id = int(light_id_arg)
-    brightness = int(brightness_id_arg)
+    brightness = int(brightness_arg)
 
     if light_id < 0 or light_id >= 5 or brightness < 0 or brightness >= 900:
         abort(400)
