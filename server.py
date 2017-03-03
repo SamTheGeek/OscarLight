@@ -115,8 +115,7 @@ def down_endpoint():
 def blink_endpoint():
     light_id_arg = request.args.get('light')
     if not light_id_arg:
-        for i in range(5):
-            blink_light(i)
+        blink_all_lights()
 
     light_id = int(light_id_arg)
 
