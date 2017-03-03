@@ -47,20 +47,6 @@ def blink_light(light_id):
     while brightness <= MAX_BRIGHTNESS:
         set_light(light_id, brightness)
         brightness += .01
-
-def blink_all_lights():
-    all_lights_up()
-    brightness = MAX_BRIGHTNESS
-    while brightness >= MIN_BRIGHTNESS:
-        for light_id in range(5):
-            set_light(light_id, brightness)
-        brightness -= .01
-
-    while brightness <= MAX_BRIGHTNESS:
-        for light_id in range(5):
-            set_light(light_id, brightness)
-        brightness += .01
-
     
 def wave_lights():
     count_downs = [0, 10, 20, 30, 40]
@@ -115,7 +101,8 @@ def down_endpoint():
 def blink_endpoint():
     light_id_arg = request.args.get('light')
     if not light_id_arg:
-        blink_all_lights()
+        all_lights_down()
+        all_lights_up()
 
     light_id = int(light_id_arg)
 
