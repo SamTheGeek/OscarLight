@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, jsonify, request, abort 
 
-LIGHT_IDS = ['17', '22', '23', '24', '25']
+LIGHT_IDS = [ '23', '24', '22', '25', '17']
 LIGHT_BRIGHTS = [0.0, 0.0, 0.0, 0.0, 0.0]
 MAX_BRIGHTNESS = 0.8
 MIN_BRIGHTNESS = 0.0
@@ -72,7 +72,7 @@ def wave_endpoint():
 
 @app.route('/up')
 def up_endpoint():
-    all_lights_up()
+    all_lights_up()p
     return '{}'
 
 @app.route('/blink')
