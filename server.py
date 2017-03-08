@@ -110,7 +110,7 @@ def down_endpoint():
     return '{}'
 
 @app.route('/half')
-def down_endpoint():
+def half_endpoint():
     all_lights_half()
     return '{}'
 
