@@ -7,7 +7,7 @@ LIGHT_IDS = [ '23', '24', '22', '25', '17']
 LIGHT_BRIGHTS = [0.0, 0.0, 0.0, 0.0, 0.0]
 MAX_BRIGHTNESS = 0.8
 MIN_BRIGHTNESS = 0.0
-INCR = 0.015
+DEFAULT_INCR = 0.015
 NUM_LIGHTS = 5
 
 app = Flask(__name__) 
@@ -17,23 +17,23 @@ def set_light(light_id, brightness):
     os.system("echo " + LIGHT_IDS[light_id] + "=" + str(brightness)
               + " > /dev/pi-blaster")
 
-def all_lights_up():
+def all_lights_up(incr):
     while True:
         done = True
         for i in range(5):
             if LIGHT_BRIGHTS[i] < MAX_BRIGHTNESS:
                 done = False
-                set_light(i, LIGHT_BRIGHTS[i] + INCR)
+                set_light(i, LIGHT_BRIGHTS[i] + incr)
         if done:
             return
-
-def all_lights_down():
+        
+def all_lights_down(incr):
     while True:
         done = True
         for i in range(5):
             if LIGHT_BRIGHTS[i] > MIN_BRIGHTNESS:
                 done = False
-                set_light(i, LIGHT_BRIGHTS[i] - INCR)
+                set_light(i, LIGHT_BRIGHTS[i] - incr)
         if done:
             for i in range(5):
                 set_light(i, 0)
@@ -53,7 +53,7 @@ def wave_lights():
     count_downs = [0, 10, 20, 30, 40]
     turning_up = [False, False, False, False, False]   
 
-    all_lights_up()
+    all_lights_up(DEFAULT_INCR)
 
     while True:
         for i in range(5):
@@ -87,20 +87,20 @@ def wave_endpoint():
 
 @app.route('/up')
 def up_endpoint():
-    all_lights_up()
+    all_lights_up(DEFAULT_INCR)
     return '{}'
 
 @app.route('/down')
 def down_endpoint():
-    all_lights_down()
+    all_lights_down(DEFAULT_INCR)
     return '{}'
 
 @app.route('/blink')
 def blink_endpoint():
     light_id_arg = request.args.get('light')
     if not light_id_arg:
-        all_lights_down()
-        all_lights_up()
+        all_lights_down(DEFAULT_INCR)
+        all_lights_up(DEFAULT_INCR)
         return '{}'
 
     light_id = int(light_id_arg)
@@ -158,9 +158,9 @@ def random_endpoint():
 def sparkle_endpoint():
     for i in range(200):
         randomize()
-    all_lights_up()
+    all_lights_up(DEFAULT_INCR)
     return '{}'
     
 if __name__ == '__main__':
-    all_lights_up()
+    all_lights_up(DEFAULT_INCR / 5)
     app.run(debug=True)
