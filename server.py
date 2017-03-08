@@ -47,7 +47,7 @@ def all_lights_half():
             if (LIGHT_BRIGHTS[i] > HALF_BRIGHTNESS):
                 done = False
                 set_light(i, LIGHT_BRIGHTS[i] - INCR)
-            else if LIGHT_BRIGHTS[i] < HALF_BRIGHTNESS:
+            elif LIGHT_BRIGHTS[i] < HALF_BRIGHTNESS:
                 done = False
                 set_light(i, LIGHT_BRIGHTS[i] + INCR)
         if done:
