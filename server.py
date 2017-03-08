@@ -7,7 +7,6 @@ LIGHT_IDS = [ '23', '24', '22', '25', '17']
 LIGHT_BRIGHTS = [0.0, 0.0, 0.0, 0.0, 0.0]
 MAX_BRIGHTNESS = 0.8
 MIN_BRIGHTNESS = 0.0
-HALF_BRIGHTNESS = (MAX_BRIGHTNESS + MIN_BRIGHTNESS) / 2
 INCR = 0.015
 NUM_LIGHTS = 5
 
@@ -38,19 +37,6 @@ def all_lights_down():
         if done:
             for i in range(5):
                 set_light(i, 0)
-            return
-
-def all_lights_half():
-    while True:
-        done = True
-        for i in range(5):
-            if (LIGHT_BRIGHTS[i] > HALF_BRIGHTNESS):
-                done = False
-                set_light(i, LIGHT_BRIGHTS[i] - INCR)
-            elif LIGHT_BRIGHTS[i] < HALF_BRIGHTNESS:
-                done = False
-                set_light(i, LIGHT_BRIGHTS[i] + INCR)
-        if done:
             return
 
 def blink_light(light_id):
@@ -107,11 +93,6 @@ def up_endpoint():
 @app.route('/down')
 def down_endpoint():
     all_lights_down()
-    return '{}'
-
-@app.route('/half')
-def half_endpoint():
-    all_lights_half()
     return '{}'
 
 @app.route('/blink')
