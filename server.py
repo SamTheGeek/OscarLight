@@ -52,11 +52,11 @@ def blink_light(light_id):
     brightness = LIGHT_BRIGHTS[light_id]
     while brightness >= MIN_BRIGHTNESS:
         set_light(light_id, brightness)
-        brightness -= DEFAULT_INCR
+        brightness -= DEFAULT_INCR / 2
 
     while brightness <= MAX_BRIGHTNESS:
         set_light(light_id, brightness)
-        brightness += DEFAULT_INCR
+        brightness += DEFAULT_INCR / 2
 
 def blink_all():
     all_lights_down(DEFAULT_INCR)
