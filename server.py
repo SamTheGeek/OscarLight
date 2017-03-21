@@ -6,7 +6,7 @@ import time
 from flask import Flask, jsonify, request, abort 
 
 # set to true to print light values instead of setting
-DEV_MODE = False
+DEV_MODE = True
 
 DEFAULT_INCR = 0.01
 LIGHT_BRIGHTS = [0.0, 0.0, 0.0, 0.0, 0.0]
@@ -57,6 +57,10 @@ def blink_light(light_id):
     while brightness <= MAX_BRIGHTNESS:
         set_light(light_id, brightness)
         brightness += .01
+
+def blink_all():
+    all_lights_down(DEFAULT_INCR)
+    all_lights_up(DEFAULT_INCR)
     
 def wave_lights():
     count_downs = [0, 10, 20, 30, 40]
@@ -122,21 +126,17 @@ def down_endpoint():
 
 @app.route('/blink')
 def blink_endpoint():
-    command_queue.put("BLINK")
-    return '{}'
-
     light_id_arg = request.args.get('light')
     if not light_id_arg:
-        all_lights_down(DEFAULT_INCR)
-        all_lights_up(DEFAULT_INCR)
+        command_queue.put("BLINK")
         return '{}'
-
+    
     light_id = int(light_id_arg)
 
     if light_id < 0 or light_id >= 5:
         abort(400)
 
-    blink_light(light_id)
+    command_queue.put("BLINK " + light_id_arg)
     return '{}'
 
 @app.route('/set')
@@ -194,8 +194,13 @@ def test_loop():
     while True:
       if not command_queue.empty():
           command = command_queue.get()
-      if command == "BLINK":
-          blink_light(0)
+      if command.startswith("BLINK"):
+          command_parts = command.split()
+          if len(command_parts) != 2:
+              blink_all()
+          else:
+              # heaven forgive me for this
+              blink_light(int(command_parts[1]))
       elif command == "UP":
           all_lights_up(DEFAULT_INCR)
           command = "STEADY"
