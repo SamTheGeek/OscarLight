@@ -52,11 +52,11 @@ def blink_light(light_id):
     brightness = LIGHT_BRIGHTS[light_id]
     while brightness >= MIN_BRIGHTNESS:
         set_light(light_id, brightness)
-        brightness -= .01
+        brightness -= DEFAULT_INCR
 
     while brightness <= MAX_BRIGHTNESS:
         set_light(light_id, brightness)
-        brightness += .01
+        brightness += DEFAULT_INCR
 
 def blink_all():
     all_lights_down(DEFAULT_INCR)
@@ -90,7 +90,7 @@ def wave_lights():
             return
 
 def randomize():
-    incr = DEFAULT_INCR
+    incr = DEFAULT_INCR / 2
     target_values = []
     for i in range(5):
         target_values.append(random.random())
@@ -111,7 +111,7 @@ def randomize():
         
 @app.route('/wave')
 def wave_endpoint():
-    wave_lights()
+    command_queue.put("WAVE")
     return '{}'
 
 @app.route('/up')
@@ -139,54 +139,9 @@ def blink_endpoint():
     command_queue.put("BLINK " + light_id_arg)
     return '{}'
 
-@app.route('/set')
-def set_light_endpoint():
-    light_id_arg = request.args.get('light')
-    brightness_arg = request.args.get('bright')
-    
-    if not light_id_arg or not brightness_arg:
-        abort(400)
-
-    light_id = int(light_id_arg)
-    brightness = float(brightness_arg)
-
-    if light_id < 0 or light_id >= 5:
-        abort(400)
-
-    if brightness < MIN_BRIGHTNESS or brightness > MAX_BRIGHTNESS:
-        abort(400)
-        
-    set_light(light_id, brightness)
-        
-    return '{}'
-
-@app.route('/set_all')
-def set_all_endpoint():
-    brightness_arg = request.args.get('bright')
-
-    if not brightness_arg:
-        abort(400)
-
-    brightness = float(brightness_arg)
-
-    if brightness < MIN_BRIGHTNESS or brightness > MAX_BRIGHTNESS:
-        abort(400)
-
-    for i in range(5):
-        set_light(i, brightness)
-
-    return '{}'
-
-@app.route('/rand')
-def random_endpoint():
-    randomize()
-    return '{}'
-
 @app.route('/sparkle')
 def sparkle_endpoint():
-    for i in range(10):
-        randomize()
-    all_lights_up(DEFAULT_INCR)
+    command_queue.put("SPARKLE")
     return '{}'
 
 def test_loop():
@@ -207,7 +162,11 @@ def test_loop():
       elif command == "DOWN":
           all_lights_down(DEFAULT_INCR)
           command = "STEADY"
-
+      elif command == "WAVE":
+          wave_lights()
+      elif command == "SPARKLE":
+          randomize()
+          
 if __name__ == '__main__':
     all_lights_up(DEFAULT_INCR / 5)
     p = multiprocessing.Process(target=test_loop)
