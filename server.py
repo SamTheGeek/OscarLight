@@ -6,7 +6,7 @@ import time
 from flask import Flask, jsonify, request, abort 
 
 # set to true to print light values instead of setting
-DEV_MODE = True
+DEV_MODE = False
 
 DEFAULT_INCR = 0.01
 LIGHT_BRIGHTS = [0.0, 0.0, 0.0, 0.0, 0.0]
