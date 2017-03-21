@@ -173,7 +173,7 @@ def random_endpoint():
 
 @app.route('/sparkle')
 def sparkle_endpoint():
-    for i in range(20):
+    for i in range(10):
         randomize()
     all_lights_up(DEFAULT_INCR)
     return '{}'
