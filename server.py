@@ -77,8 +77,25 @@ def wave_lights():
             return
 
 def randomize():
+    incr = DEFAULT_INCR
+    target_values = []
     for i in range(5):
-        set_light(i, random.random())
+        target_values.append(random.random())
+
+    while True:
+        done = True
+        for i in range(5):
+            if abs(LIGHT_BRIGHTS[i] - target_values[i]) < DEFAULT_INCR:
+                continue
+            elif LIGHT_BRIGHTS[i] < target_values[i]:
+                done = False
+                set_light(i, LIGHT_BRIGHTS[i] + incr)
+            elif LIGHT_BRIGHTS[i] > target_values[i]:
+                done = False
+                set_light(i, LIGHT_BRIGHTS[i] - incr)
+        if done:
+            return
+
 
 @app.route('/wave')
 def wave_endpoint():
@@ -156,7 +173,7 @@ def random_endpoint():
 
 @app.route('/sparkle')
 def sparkle_endpoint():
-    for i in range(200):
+    for i in range(20):
         randomize()
     all_lights_up(DEFAULT_INCR)
     return '{}'
