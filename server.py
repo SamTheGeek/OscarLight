@@ -7,7 +7,7 @@ LIGHT_IDS = [ '23', '24', '22', '25', '17']
 LIGHT_BRIGHTS = [0.0, 0.0, 0.0, 0.0, 0.0]
 MAX_BRIGHTNESS = 0.8
 MIN_BRIGHTNESS = 0.0
-DEFAULT_INCR = 0.015
+DEFAULT_INCR = 0.005
 NUM_LIGHTS = 5
 
 app = Flask(__name__) 
