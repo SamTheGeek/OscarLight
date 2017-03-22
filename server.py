@@ -171,5 +171,5 @@ if __name__ == '__main__':
     all_lights_up(DEFAULT_INCR / 5)
     p = multiprocessing.Process(target=test_loop)
     p.start()
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
     p.join()
