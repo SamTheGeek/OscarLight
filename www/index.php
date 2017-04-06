@@ -9,6 +9,8 @@ Oscar Lights!
 <a href="/blink" onclick="javascript:event.target.port=5000">blink</a>
 <br> <br>
 <a href="/wave" onclick="javascript:event.target.port=5000">wave</a>
+<br> <br>
+<a href="/sparkle" onclick="javascript:event.target.port=5000">sparkle</a>
 <br>
 <br>
 </html>
