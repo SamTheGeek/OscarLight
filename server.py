@@ -35,6 +35,15 @@ def all_lights_up(incr):
                 set_light(i, LIGHT_BRIGHTS[i] + incr)
         if done:
             return
+
+def one_light_up(incr, light):
+    while True:
+        done = True
+        if LIGHT_BRIGHTS[light] < MAX_BRIGHTNESS:
+            done = False
+            set_light(light, LIGHT_BRIGHTS[light] + incr)
+        if done:
+            return
         
 def all_lights_down(incr):
     while True:
@@ -48,6 +57,17 @@ def all_lights_down(incr):
                 set_light(i, 0)
             return
 
+def one_light_down(incr, light):
+    while True:
+        done = True
+        if LIGHT_BRIGHTS[light] > MIN_BRIGHTNESS:
+            done = False
+            set_light(light, LIGHT_BRIGHTS[light] - incr)
+        if done:
+            set_light(light, 0)
+            return
+    
+        
 def blink_light(light_id):
     brightness = LIGHT_BRIGHTS[light_id]
     while brightness >= MIN_BRIGHTNESS:
@@ -116,12 +136,30 @@ def wave_endpoint():
 
 @app.route('/up')
 def up_endpoint():
-    command_queue.put("UP")
+    light_id_arg = request.args.get('light')
+    if not light_id_arg:
+        command_queue.put("UP")
+        return '{}'
+    light_id = int(light_id_arg)
+
+    if light_id < 0 or light_id >= 5:
+        abort(400)
+
+    command_queue.put("UP " + light_id_arg)
     return '{}'
 
 @app.route('/down')
 def down_endpoint():
-    command_queue.put("DOWN")
+    light_id_arg = request.args.get('light')
+    if not light_id_arg:
+        command_queue.put("DOWN")
+        return '{}'
+    light_id = int(light_id_arg)
+
+    if light_id < 0 or light_id >= 5:
+        abort(400)
+
+    command_queue.put("DOWN " + light_id_arg)
     return '{}'
 
 @app.route('/blink')
@@ -156,11 +194,21 @@ def test_loop():
           else:
               # heaven forgive me for this
               blink_light(int(command_parts[1]))
-      elif command == "UP":
-          all_lights_up(DEFAULT_INCR)
+      elif command.startswith("UP"):
+          command_parts = command.split()
+          if len(command_parts) != 2:
+              all_lights_up(DEFAULT_INCR)
+          else:
+              # also for this
+              one_light_up(DEFAULT_INCR, int(command_parts[1]))
           command = "STEADY"
-      elif command == "DOWN":
-          all_lights_down(DEFAULT_INCR)
+      elif command.startswith("DOWN"):
+          command_parts = command.split()
+          if len(command_parts) != 2:
+              all_lights_down(DEFAULT_INCR)
+          else:
+              # after three times this may no longer be forgivable, admittedly
+              one_light_down(DEFAULT_INCR, int(command_parts[1]))
           command = "STEADY"
       elif command == "WAVE":
           wave_lights()
