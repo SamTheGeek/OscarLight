@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bootstrap Agency Template</title>
+<title>Oscar Light</title>
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="css/bootstrap.css">
@@ -31,7 +31,7 @@
     </div>
   </div>
 </header>
-<!-- / HEADER --> 
+<!-- / HEADER -->
 
 <!--  SECTION-1 -->
 <section>
@@ -40,23 +40,23 @@
   </div>
   <div class="container ">
     <div class="row">
-      <div class="col-lg-4 col-sm-12 text-center"> <a href="http://192.168.44.190/up"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="assets/on-button-small-hi.png" data-holder-rendered="true"></a>
+      <div class="col-lg-4 col-sm-12 text-center"> <a href="/up" onclick="javascript:event.target.port=5000"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="images/on-button-small-hi.png" data-holder-rendered="true"></a>
         <h3>ON</h3>
         <p>&nbsp;</p>
       </div>
-      <div class="col-lg-4 col-sm-12 text-center"><a href="http://192.168.44.190/down"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="assets/unnamed.png" data-holder-rendered="true"></a>
+      <div class="col-lg-4 col-sm-12 text-center"><a href="/down" onclick="javascript:event.target.port=5000"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="images/unnamed.png" data-holder-rendered="true"></a>
         <h3>Fade OFF</h3>
         <p>&nbsp;</p>
       </div>
-      <div class="col-lg-4 col-sm-12 text-center"><a href="http://192.168.44.190/blink"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="assets/star_blink_light_sky_night-512.png" data-holder-rendered="true"></a>
+      <div class="col-lg-4 col-sm-12 text-center"><a href="/blink" onclick="javascript:event.target.port=5000"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="images/star_blink_light_sky_night-512.png" data-holder-rendered="true"></a>
         <h3>Blink</h3>
         <p>&nbsp;</p>
       </div>
-      <div class="col-lg-4 col-sm-12 text-center"><a href="http://192.168.44.190/wave"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="assets/logo-blue.png" data-holder-rendered="true"></a>
+      <div class="col-lg-4 col-sm-12 text-center"><a href="/wave" onclick="javascript:event.target.port=5000"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="images/logo-blue.png" data-holder-rendered="true"></a>
         <h3>Wave</h3>
         <p>&nbsp;</p>
       </div>
-      <div class="col-lg-4 col-sm-12 text-center"><a href="http://192.168.44.190/sparkle"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="assets/sparkles-7.gif" data-holder-rendered="true"></a>
+      <div class="col-lg-4 col-sm-12 text-center"><a href="/sparkle" onclick="javascript:event.target.port=5000"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="images/sparkles-7.gif" data-holder-rendered="true"></a>
         <h3>Sparkle</h3>
         <p>&nbsp;</p>
       </div>
@@ -66,11 +66,11 @@
     </div>
     <div class="row"></div>
     <div class="row"></div>
-    
+
   </div>
   <div class="jumbotron"></div>
-  
-  <!-- /container --><!-- / CONTAINER--> 
+
+  <!-- /container --><!-- / CONTAINER-->
 </section>
 
 <!-- FOOTER -->
@@ -79,10 +79,10 @@
     <div class="row"></div>
   </div>
 </footer>
-<!-- / FOOTER --> 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
-<script src="js/jquery-1.11.3.min.js"></script> 
-<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<!-- / FOOTER -->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery-1.11.3.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.js"></script>
 </body>
 </html>
