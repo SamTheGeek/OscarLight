@@ -1,0 +1,37 @@
+~A secret menu of all the delightful commands~
+
+Bring up all lights to full
+  http://192.168.44.190:5000/up
+
+Bring up an individual light to full
+    http://192.168.44.190:5000/up?light=0
+    http://192.168.44.190:5000/up?light=1
+    http://192.168.44.190:5000/up?light=2
+    http://192.168.44.190:5000/up?light=3
+    http://192.168.44.190:5000/up?light=4
+
+Bring up all lights down
+  http://192.168.44.190:5000/down
+
+Bring up an individual light down
+    http://192.168.44.190:5000/down?light=0
+    http://192.168.44.190:5000/down?light=1
+    http://192.168.44.190:5000/down?light=2
+    http://192.168.44.190:5000/down?light=3
+    http://192.168.44.190:5000/down?light=4
+
+Blink the lights
+    http://192.168.44.190:5000/blink
+    
+Blink just one light
+    http://192.168.44.190:5000/blink?light=0
+    http://192.168.44.190:5000/blink?light=1
+    http://192.168.44.190:5000/blink?light=2
+    http://192.168.44.190:5000/blink?light=3
+    http://192.168.44.190:5000/blink?light=4
+
+Wave the lights
+    http://192.168.44.190:5000/wave
+
+'Sparkle' (USE AT YOUR OWN RISK!!!)
+    http://192.168.44.190:5000/sparkle
